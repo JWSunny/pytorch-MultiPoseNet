@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 '''RetinaFPN in PyTorch.'''
 import torch
 import torch.nn as nn
@@ -51,6 +52,7 @@ class FPN(nn.Module):
         self.conv7 = nn.Conv2d(256, 256, kernel_size=3, stride=2, padding=1)
 
         # Lateral layers
+        # 降channel用的，从顶向下加的时候得降channel
         self.latlayer1 = nn.Conv2d(2048, 256, kernel_size=1, stride=1, padding=0)
         self.latlayer2 = nn.Conv2d(1024, 256, kernel_size=1, stride=1, padding=0)
         self.latlayer3 = nn.Conv2d(512, 256, kernel_size=1, stride=1, padding=0)
@@ -118,3 +120,7 @@ def FPN101():
     return FPN(Bottleneck, [2,4,23,3])
 
 
+net = FPN101()
+input = torch.randn(1,3,480,480)
+output = net(input)
+print('done')
