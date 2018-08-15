@@ -2,7 +2,7 @@
 import torch
 import torch.nn as nn
 
-from fpn import FPN50
+from fpn import FPN50,FPN101
 from torch.autograd import Variable
 
 
@@ -11,7 +11,9 @@ class RetinaNet(nn.Module):
     
     def __init__(self, num_classes=20):
         super(RetinaNet, self).__init__()
-        self.fpn = FPN50()
+        self.fpn = FPN101()
+        for p in self.parameters():
+            p.require_grad = False
         self.num_classes = num_classes
         self.loc_head = self._make_head(self.num_anchors*4)
         self.cls_head = self._make_head(self.num_anchors*self.num_classes)
@@ -42,3 +44,4 @@ class RetinaNet(nn.Module):
         for layer in self.modules():
             if isinstance(layer, nn.BatchNorm2d):
                 layer.eval()
+

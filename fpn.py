@@ -109,7 +109,7 @@ class FPN(nn.Module):
         p4 = self.toplayer1(p4)
         p3 = self._upsample_add(p4, self.latlayer3(c3))
         p3 = self.toplayer2(p3)
-        return p3, p4, p5, p6, p7
+        return c2, p3, p4, p5, p6, p7
 
 def FPN50():
     # [3,4,6,3] -> resnet50
@@ -118,9 +118,3 @@ def FPN50():
 def FPN101():
     # [2,4,23,3] -> resnet101
     return FPN(Bottleneck, [2,4,23,3])
-
-
-net = FPN101()
-input = torch.randn(1,3,480,480)
-output = net(input)
-print('done')
