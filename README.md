@@ -8,9 +8,9 @@ The paper link is here [multiposenet-paper] (https://arxiv.org/pdf/1807.04067.pd
 Now network has been defined and test with CUDA 8 and ubuntu16.04(include keypoint subnet,retinanet and pose residual network).
 
 
-# Network Architecture
+## Network Architecture
 
-The network include four parts: backbone, keypoint regression subnet, person detection part and prn part for multi-person pose assign.
+The network include four parts: backbone, keypoint regression subnet, person detection part and prn part for multi-person pose assignment.
 
 The architecture of the network:
 
@@ -20,7 +20,7 @@ The architecture of the keypoint subnet:
 
 ![avatar](http://wx4.sinaimg.cn/mw690/005uXRWzly1fua75sh9xaj30ub072755.jpg)
 
-# Requirements
+## Requirements
 
 - python3
 - pytorch == 0.4.0
@@ -30,7 +30,7 @@ The architecture of the keypoint subnet:
 - progress
 - scikit-image
 
-# How to use 
+## How to use 
 The backbone and two fpn-based model has been realized in this repo. The keypoint subnet is defined in posenet.py , the person detection network is defined in retinanet.py. You can train them to get keypoint heatmap and person detection bbox.  
 
 This PRN model has been set in prn_train direcory. MSCOCO dataset's annotations contain person bbox and coordinate of keypoints. You can just train the PRN network by 
@@ -38,7 +38,7 @@ This PRN model has been set in prn_train direcory. MSCOCO dataset's annotations 
  
 Thanks for the [repo](https://github.com/salihkaragoz/pose-residual-network-pytorch). We have realized and contribute our code of the independent PRN module based on this repo.
  
-# Acknowledgement
+## Acknowledgement
 
 Thanks for the author of "MultiPoseNet: Fast Multi-Person Pose
 Estimation using Pose Residual Network".
