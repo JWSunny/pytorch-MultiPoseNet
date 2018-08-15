@@ -14,10 +14,13 @@ class Concat(nn.Module):
         return torch.cat((up1,up2,up3,up4),1)
 
 class poseNet(nn.Module):
-    def __init__(self):
+    def __init__(self,layers):
         super(poseNet,self).__init__()
-        self.fpn = FPN101()
-
+        if layers == 101:
+            self.fpn = FPN101()
+        if layers == 50:
+            self.fpn = FPN50()
+            
         self.latlayer4 = nn.Conv2d(256, 256, kernel_size=1, stride=1, padding=0)
         self.toplayer3 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
 
