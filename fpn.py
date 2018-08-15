@@ -118,9 +118,3 @@ def FPN50():
 def FPN101():
     # [2,4,23,3] -> resnet101
     return FPN(Bottleneck, [2,4,23,3])
-
-
-net = FPN101()
-input = torch.randn(1,3,480,480)
-output = net(input)
-print('done')
