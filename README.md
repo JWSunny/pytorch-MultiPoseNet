@@ -1,15 +1,11 @@
-<<<<<<< HEAD
-# MultiPoseNet
-pytorch-multiposenet for pose estimation.The repo will be done during this week.
-=======
 ﻿# MultiPoseNet
 
 This repo is for paper "MultiPoseNet: Fast Multi-Person Pose
 Estimation using Pose Residual Network", ECCV 2018.
 
-The paper link is here [multiposenet-paper] (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has  archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
+The paper link is here multiposenet-paper: (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has  archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
 
-Now network has been defined and test with CUDA 8 and ubuntu16.04(include keypoint subnet,retinanet and pose residual network).
+Now network has been defined and test with CUDA 8 and ubuntu 16.04(include keypoint subnet,retinanet and pose residual network).
 
 
 ## Network Architecture
@@ -51,4 +47,3 @@ Estimation using Pose Residual Network".
 
 
 
->>>>>>> 5f7dcf0cbaf0892cb8c82aef2ffa1044c33d12df

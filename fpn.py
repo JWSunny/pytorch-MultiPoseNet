@@ -6,7 +6,6 @@ import torch.nn.functional as F
 
 from torch.autograd import Variable
 
-
 class Bottleneck(nn.Module):
     expansion = 4
 
