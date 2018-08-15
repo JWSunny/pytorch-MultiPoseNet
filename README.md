@@ -20,6 +20,12 @@ The architecture of the keypoint subnet:
 
 ![avatar](http://wx4.sinaimg.cn/mw690/005uXRWzly1fua75sh9xaj30ub072755.jpg)
 
+## Datasets
+
+MSCOCO2017:
+
+The keypoint subnet and retinanet need MSCOCO2017.You should download the data from official MSCOCO's website. 
+
 ## Requirements
 
 - python3
