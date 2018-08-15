@@ -10,7 +10,7 @@ Now network has been defined and test with CUDA 8 and ubuntu16.04(include keypoi
 
 ## Network Architecture
 
-The network include four parts: backbone, keypoint regression subnet, person detection part and prn part for multi-person pose assign.
+The network include four parts: backbone, keypoint regression subnet, person detection part and prn part for multi-person pose assignment.
 
 The architecture of the network:
 
