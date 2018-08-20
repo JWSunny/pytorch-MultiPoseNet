@@ -3,9 +3,9 @@
 This repo is for paper "MultiPoseNet: Fast Multi-Person Pose
 Estimation using Pose Residual Network", ECCV 2018.
 
-The paper link is here [multiposenet-paper] (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has  archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
+The paper link is here multiposenet-paper: (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has  archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
 
-Now network has been defined and test with CUDA 8 and ubuntu16.04(include keypoint subnet,retinanet and pose residual network).
+Now network has been defined and test with CUDA 8 and ubuntu 16.04(include keypoint subnet,retinanet and pose residual network).
 
 
 ## Network Architecture
@@ -19,6 +19,12 @@ The architecture of the network:
 The architecture of the keypoint subnet:
 
 ![avatar](http://wx4.sinaimg.cn/mw690/005uXRWzly1fua75sh9xaj30ub072755.jpg)
+
+## Datasets
+
+MSCOCO2017:
+
+The keypoint subnet and retinanet need MSCOCO2017.You should download the data from official MSCOCO's website. 
 
 ## Requirements
 
