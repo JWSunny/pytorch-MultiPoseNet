@@ -22,7 +22,7 @@ def main(optin):
     model = poseNet(101).cuda()
     #model = torch.nn.DataParallel(model).cuda()
     optimizer = torch.optim.Adam(model.parameters(), lr=optin.lr)
-    criterion = torch.nn.BCELoss().cuda()
+    criterion = torch.nn.MSELoss().cuda()
 
     coco_train = COCO(os.path.join('./annotations/person_keypoints_train2017.json'))
     trainloader = DataLoader(dataset=COCOkeypointloader(coco_train),batch_size=optin.batch_size, num_workers=optin.num_workers, shuffle=True)
