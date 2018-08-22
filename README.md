@@ -36,12 +36,21 @@ The keypoint subnet and retinanet need MSCOCO2017.You should download the data f
 - progress
 - scikit-image
 
-## How to use 
+## Train
 The backbone and two fpn-based model has been realized in this repo. The keypoint subnet is defined in posenet.py , the person detection network is defined in retinanet.py. You can train them to get keypoint heatmap and person detection bbox.  
 
+If you want to train the posenet (keypoint subnet) for keypoint estimation, just(and if you want to train retinanet with coco, just modify the dataloader.py to get bounding box annotations):
+```
+python train_posenet.py
+```
+
 This PRN model has been set in prn_train direcory. MSCOCO dataset's annotations contain person bbox and coordinate of keypoints. You can just train the PRN network by 
-> python prn_train/train.py
- 
+```
+python prn_train/train.py
+```
+
+The options of training settings in prn_train/opt.py.
+
 Thanks for the [repo](https://github.com/salihkaragoz/pose-residual-network-pytorch). We have realized and contribute our code of the independent PRN module based on this repo.
  
 ## Acknowledgement
