@@ -1,6 +1,6 @@
 ﻿# MultiPoseNet
 
-This repo is for paper "MultiPoseNet: Fast Multi-Person Pose
+This repo is a pytorch reproduce-version for paper "MultiPoseNet: Fast Multi-Person Pose
 Estimation using Pose Residual Network", ECCV 2018.
 
 The paper link is here multiposenet-paper: (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has  archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
