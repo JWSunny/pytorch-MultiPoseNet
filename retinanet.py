@@ -19,7 +19,7 @@ class RetinaNet(nn.Module):
         self.cls_head = self._make_head(self.num_anchors*self.num_classes)
 
     def forward(self, x):
-        fms = self.fpn(x)
+        fms = self.fpn(x)[1]
         loc_preds = []
         cls_preds = []
         for fm in fms:

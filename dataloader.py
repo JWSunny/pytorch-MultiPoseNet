@@ -5,8 +5,10 @@ import torch.utils.data as data
 import numpy as np
 import math
 import skimage.io as io
+import skimage.transform as transform
 from skimage.filters import gaussian
-from prn_train.opt import Options
+from posenetopt import Options
+import cv2
 
 option = Options().parse()
 # COCOkeypointloader用来读取原图和根据关键点生成heatmap
@@ -28,9 +30,16 @@ class COCOkeypointloader(data.Dataset):
     def get_data(self,ann_data,coco):
         img_id = ann_data['image_id']
         img_data = coco.loadImgs(img_id)[0]
-        img = io.imread('/path/to/coco'+img_data['filename'])
-        size = img.size()
+        # img = io.imread('/path/to/coco'+img_data['filename'])
+        img = cv2.imread(option.cocopath + '/' + img_data['file_name'])
+        ori_size = img.shape
+        img = transform.resize(img,(256,256))
+        # resize to (256,256) => a scale of x and y coordinate
+        x_scale = 256 / ori_size[0]
+        y_scale = 256 / ori_size[1]
+        size = img.shape
 
+        # get a mask
         output = np.zeros((size[0],size[1],17))
         kpx = ann_data['keypoints'][0::3]
         kpy = ann_data['keypoints'][1::3]
@@ -38,8 +47,8 @@ class COCOkeypointloader(data.Dataset):
 
         for j in range(17):
             if kpv[j] > 0:
-                x0 = int(kpx[j])
-                y0 = int(kpy[j])
+                x0 = int(kpx[j] * x_scale)
+                y0 = int(kpy[j] * y_scale)
 
                 if x0 >= size[1] and y0 >= size[0]:
                     output[size[0] - 1, size[1] - 1, j] = 1
@@ -60,7 +69,9 @@ class COCOkeypointloader(data.Dataset):
                     output[y0, x0, j] = 1
 
         output = gaussian(output, sigma=2, mode='constant', multichannel=True)
-        return img,output
+        output = np.rollaxis(output,-1,0)
+        # convert io.imread()=>(h,w,c) to (c,h,w)
+        return np.rollaxis(img,-1,0),output
         
     def getImage(self,coco):
         ids = coco.getAnnIds()

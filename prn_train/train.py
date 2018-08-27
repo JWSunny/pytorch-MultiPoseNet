@@ -30,7 +30,7 @@ def main(optin):
     save_options(optin, os.path.join('checkpoint/' + optin.exp), model.__str__(), criterion.__str__(), optimizer.__str__())
 
     print ('---------Loading Coco Training Set--------')
-    coco_train = COCO(os.path.join('./annotations/person_keypoints_train2017.json'))
+    coco_train = COCO(os.path.join('../annotations/person_keypoints_train2017.json'))
     trainloader = DataLoader(dataset=CocoDataset(coco_train,optin),batch_size=optin.batch_size, num_workers=optin.num_workers, shuffle=True)
 
     bar = Bar('-->', fill='>', max=len(trainloader))
