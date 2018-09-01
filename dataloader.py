@@ -27,7 +27,9 @@ class COCOkeypointloader(data.Dataset):
     def get_data(self,ann_data,coco):
         img_id = ann_data['image_id']
         img_data = coco.loadImgs(img_id)[0]
-        img = io.imread('/path/to/coco'+img_data['filename'])
+        imgname = 'E:/datasets/2017coco/train2017/'+img_data['file_name']
+        # img = io.imread('E:/datasets/2017coco/train2017/'+img_data['filename'])
+        img = io.imread(imgname)
         size = img.size()
 
         output = np.zeros((size[0],size[1],17))
@@ -60,6 +62,7 @@ class COCOkeypointloader(data.Dataset):
         for i in range(17):
             output = gaussian(output, sigma=2, mode='constant', multichannel=True)
         return img,output
+        
     def getImage(self,coco):
         ids = coco.getAnnIds()
         images = []

@@ -11,7 +11,6 @@ def save_options(opt, path,model,criterion, optimizer):
         f.write(json.dumps(vars(opt), sort_keys=True, indent=4))
         f.write(json.dumps(model_struc, sort_keys=True, indent=4))
 
-
 def save_model(state, checkpoint, filename='checkpoint.pth.tar'):
     filename = 'epoch'+str(state['epoch']) + filename
     filepath = os.path.join(checkpoint, filename)
