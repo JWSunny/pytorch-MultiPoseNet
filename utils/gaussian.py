@@ -3,7 +3,6 @@ from skimage.filters import gaussian
 
 sigmas = np.array([.26, .25, .25, .35, .35, .79, .79, .72, .72, .62, .62, 1.07, 1.07, .87, .87, .89, .89] * 100)
 
-
 def multivariate_gaussian(N, sigma=2):
     t = 4
     X = np.linspace(-t, t, N)
@@ -20,7 +19,6 @@ def multivariate_gaussian(N, sigma=2):
     N = np.sqrt((2 * np.pi) ** n * Sigma_det)
     fac = np.einsum('...k,kl,...l->...', pos - mu, Sigma_inv, pos - mu)
     return np.exp(-fac / 2) / N
-
 
 def crop_paste(img, c, N=13, sigma=2):
     Z = multivariate_gaussian(N, sigma)
@@ -72,7 +70,6 @@ def gaussian(img, N = 13, sigma=2):
     return img
 '''
 
-
 def gaussian_multi_input_mp(inp):
     '''
     :param inp: Multi person ground truth heatmap input (17 ch) Each channel contains multiple joints.
@@ -98,7 +95,6 @@ def gaussian_multi_input_mp(inp):
             out[:, :, i] = np.zeros((h, w))
     return out
 
-
 def gaussian_multi_output(inp):
     '''
     :param inp: Single person ground truth heatmap input (17 ch) Each channel contains one joint.
@@ -117,7 +113,6 @@ def gaussian_multi_output(inp):
         t = gaussian(t, sigma=5, mode='constant')
         out[:, :, i] = t * (1 / t.max())
     return out
-
 
 def crop(img, c, N=13):
     H = img.shape[1]

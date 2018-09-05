@@ -15,18 +15,14 @@ class Options:
         self.parser.add_argument('--number_of_epoch', type=int, default=16)
         self.parser.add_argument('--num_workers', type=int, default=4)
         self.parser.add_argument('--batch_size', type=int, default=8)
-        self.parser.add_argument('--node_count', type=int, default=1024, help='Hidden Layer Node Count')
         # --------------------------  General Training Options
 
         self.parser.add_argument('--exp', type=str, default='test/', help='Experiment name')
 
         # --------------------------
-        self.parser.add_argument('--coeff', type=int, default=2, help='Coefficient of bbox size')
-        self.parser.add_argument('--threshold', type=int, default=0.21, help='BBOX threshold')
-        self.parser.add_argument('--test_cp', type=str,default='checkpoint/test/epoch16checkpoint.pth.tar' ,help='Path to model for testing')
+        self.parser.add_argument('--cocopath',type=str,default='E:/datasets/2017coco/train2017/')
         self.parser.add_argument('--num_of_keypoints', type=int, default=3, help='Minimum number of keypoints for each bbox in training')
         self.parser.add_argument('--test_keypoint_count', type=int, default=0, help='Validating with different keypoint count')
-        self.parser.add_argument('--window_size', type=int, default=15, help='Windows size for cropping')
         # --------------------------
 
     def _print(self):

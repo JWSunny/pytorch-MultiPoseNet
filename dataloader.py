@@ -5,11 +5,14 @@ import torch.utils.data as data
 import numpy as np
 import math
 import skimage.io as io
+import skimage.transform as transform
 from skimage.filters import gaussian
-from prn_train.opt import Options
+from posenetopt import Options
+import cv2
 
 option = Options().parse()
-
+# COCOkeypointloader用来读取原图和根据关键点生成heatmap
+# 用来做第一阶段的关键点heatmap回归
 class COCOkeypointloader(data.Dataset):
     def __init__(self,coco_train):
         self.coco_train = coco_train
@@ -27,11 +30,21 @@ class COCOkeypointloader(data.Dataset):
     def get_data(self,ann_data,coco):
         img_id = ann_data['image_id']
         img_data = coco.loadImgs(img_id)[0]
-        imgname = 'E:/datasets/2017coco/train2017/'+img_data['file_name']
-        # img = io.imread('E:/datasets/2017coco/train2017/'+img_data['filename'])
-        img = io.imread(imgname)
-        size = img.size()
+        # print(option.cocopath+img_data['file_name'])
+        img = io.imread(option.cocopath+img_data['file_name'])
+        # img = cv2.imread(option.cocopath + '/' + img_data['file_name'])
+        print(len(img.shape))
+        if(len(img.shape)!=3):
+            print('here')
 
+        ori_size = img.shape
+        img = transform.resize(img,(256,256))
+        # resize to (256,256) => a scale of x and y coordinate
+        x_scale = 256 / ori_size[0]
+        y_scale = 256 / ori_size[1]
+        size = img.shape
+
+        # get a mask
         output = np.zeros((size[0],size[1],17))
         kpx = ann_data['keypoints'][0::3]
         kpy = ann_data['keypoints'][1::3]
@@ -39,8 +52,8 @@ class COCOkeypointloader(data.Dataset):
 
         for j in range(17):
             if kpv[j] > 0:
-                x0 = int(kpx[j])
-                y0 = int(kpy[j])
+                x0 = int(kpx[j] * x_scale)
+                y0 = int(kpy[j] * y_scale)
 
                 if x0 >= size[1] and y0 >= size[0]:
                     output[size[0] - 1, size[1] - 1, j] = 1
@@ -59,9 +72,11 @@ class COCOkeypointloader(data.Dataset):
                     output[0, x0, j] = 1
                 else:
                     output[y0, x0, j] = 1
-        for i in range(17):
-            output = gaussian(output, sigma=2, mode='constant', multichannel=True)
-        return img,output
+
+        output = gaussian(output, sigma=2, mode='constant', multichannel=True)
+        output = np.rollaxis(output,-1,0)
+        # convert io.imread()=>(h,w,c) to (c,h,w)
+        return np.rollaxis(img,-1,0),output
         
     def getImage(self,coco):
         ids = coco.getAnnIds()

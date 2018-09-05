@@ -1,6 +1,6 @@
 ﻿# MultiPoseNet
 
-This repo is for paper "MultiPoseNet: Fast Multi-Person Pose
+This repo is a pytorch reproduce-version for paper "MultiPoseNet: Fast Multi-Person Pose
 Estimation using Pose Residual Network", ECCV 2018.
 
 The paper link is here multiposenet-paper: (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has  archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
@@ -36,12 +36,21 @@ The keypoint subnet and retinanet need MSCOCO2017.You should download the data f
 - progress
 - scikit-image
 
-## How to use 
+## Train
 The backbone and two fpn-based model has been realized in this repo. The keypoint subnet is defined in posenet.py , the person detection network is defined in retinanet.py. You can train them to get keypoint heatmap and person detection bbox.  
 
+If you want to train the posenet (keypoint subnet) for keypoint estimation, just(and if you want to train retinanet with coco, just modify the dataloader.py to get bounding box annotations):
+```
+python train_posenet.py
+```
+
 This PRN model has been set in prn_train direcory. MSCOCO dataset's annotations contain person bbox and coordinate of keypoints. You can just train the PRN network by 
-> python prn_train/train.py
- 
+```
+python prn_train/train.py
+```
+
+The options of training settings in prn_train/opt.py.
+
 Thanks for the [repo](https://github.com/salihkaragoz/pose-residual-network-pytorch). We have realized and contribute our code of the independent PRN module based on this repo.
  
 ## Acknowledgement

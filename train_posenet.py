@@ -5,10 +5,10 @@ from progress.bar import Bar
 from pycocotools.coco import COCO
 
 import torch
-import torch.backends.cudnn as cudnn
+#import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 
-from prn_train.opt import Options
+from posenetopt import Options
 from posenet import poseNet
 # from utils.eval import Evaluation
 # from utils.utils import save_options
@@ -20,10 +20,11 @@ def main(optin):
     if not os.path.exists('checkpoint/'+optin.exp):
         os.makedirs('checkpoint/'+optin.exp)
     model = poseNet(101).cuda()
+    model.train()
     #model = torch.nn.DataParallel(model).cuda()
     optimizer = torch.optim.Adam(model.parameters(), lr=optin.lr)
-    criterion = torch.nn.BCELoss().cuda()
-
+    criterion = torch.nn.MSELoss().cuda()
+    # print(os.path.join('./annotations/person_keypoints_train2017.json'))
     coco_train = COCO(os.path.join('./annotations/person_keypoints_train2017.json'))
     trainloader = DataLoader(dataset=COCOkeypointloader(coco_train),batch_size=optin.batch_size, num_workers=optin.num_workers, shuffle=True)
 
@@ -45,13 +46,13 @@ def main(optin):
             loss = criterion(outputs, label)
             loss.backward()
             optimizer.step()
-
-            if idx % 200 == 0:
-                bar.suffix = 'Epoch: {epoch} Total: {ttl} | ETA: {eta:} | loss:{loss}' \
-                .format(ttl=bar.elapsed_td, eta=bar.eta_td, loss=loss.data, epoch=epoch)
-                bar.next()
-
-        model.train()
+            print('Epoch {} : loss {}'.format(epoch,loss.data))
+            #if idx % 200 == 0:
+            #    bar.suffix = 'Epoch: {epoch} Total: {ttl} | ETA: {eta:} | loss:{loss}' \
+            #    .format(ttl=bar.elapsed_td, eta=bar.eta_td, loss=loss.data, epoch=epoch)
+            #    bar.next()
+        if epoch % 5 == 0:
+            torch.save(model,os.path.join('checkpoint/'+optin.exp, 'model_{}.pth'.format(epoch)))
 
 if __name__ == "__main__":
     option = Options().parse()
