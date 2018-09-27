@@ -3,7 +3,7 @@
 This repo is a pytorch reproduce-version for paper "MultiPoseNet: Fast Multi-Person Pose
 Estimation using Pose Residual Network", ECCV 2018.
 
-The paper link is here multiposenet-paper: (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has  archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
+The paper link is here multiposenet-paper: (https://arxiv.org/pdf/1807.04067.pdf). Now multiposenet has archived the state-of-the-art of multi-person pose estimation in bottom-up methods.
 
 Now network has been defined and test with CUDA 8 and ubuntu 16.04(include keypoint subnet,retinanet and pose residual network).
 
@@ -51,7 +51,7 @@ python prn_train/train.py
 
 The options of training settings in prn_train/opt.py.
 
-Thanks for the [repo](https://github.com/salihkaragoz/pose-residual-network-pytorch). We have realized and contribute our code of the independent PRN module based on this repo.
+Thanks for the [repo](https://github.com/salihkaragoz/pose-residual-network-pytorch). We have realized and contribute few code of the independent PRN module based to this repo. Most code of PRN module are from this repo. I fixed some bugs when run the code from the authors' code.
  
 ## Acknowledgement
 
